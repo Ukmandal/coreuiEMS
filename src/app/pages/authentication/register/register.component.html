@@ -1,0 +1,193 @@
+<div class="app-body">
+  <div class="container">
+    <div class="col-md-6 mx-auto">
+      <div class="card mx-4">
+        <hr style="border-width: 5px; background-color: crimson; margin-top: 0px;">
+        <div class="card-body p-4">
+          <h1 class="text-center">Register</h1>
+          <p class="text-muted text-center">Create your account</p>
+          <!-- start reactive form -->
+          <form class="form-horizontal" [formGroup]="registerForm" (ngSubmit)="register()" novalidate>
+            <div class="col-sm-6 col-sm-12">
+              <div class="row">
+                <div class="col-sm-12">
+
+                  <!-- start imageUrl -->
+                  <div class="form-group row" [ngClass]="{'has-error': (registerForm.get('imageUrl').touched || registerForm.get('imageUrl').dirty) &&
+                !registerForm.get('imageUrl').valid }">
+                    <div class="col-sm-2"></div>
+                    <span class="input-group-text">
+                      <i class="icon-link"></i>
+                    </span>
+                    <div class="col-sm-8">
+                      <input style="cursor: pointer;" type="file" class="form-control form-control-sm" (change)="imageUpload($event)">
+                      <span class="text-default" *ngIf="(registerForm.get('imageUrl').touched || registerForm.get('imageUrl').dirty) && 
+                                                         registerForm.get('imageUrl').errors">
+                        <span *ngIf="registerForm.get('imageUrl').errors.required">Please select your image.</span>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- end imageUrl -->
+
+                  <!-- start userName -->
+                  <div class="form-group row" [ngClass]="{'has-error': (registerForm.get('userName').touched || registerForm.get('userName').dirty) &&
+                !registerForm.get('userName').valid }">
+                    <div class="col-sm-2"></div>
+                    <span class="input-group-text">
+                      <i class="icon-user"></i>
+                    </span>
+                    <div class="col-sm-8">
+                      <input type="text" formControlName="userName" class="form-control" placeholder="Your userName">
+                      <span class="text-danger" *ngIf="(registerForm.get('userName').touched || registerForm.get('userName').dirty) && 
+                     registerForm.get('userName').errors">
+                        <span *ngIf="registerForm.get('userName').errors.required">Please enter your user name.</span>
+                        <span *ngIf="registerForm.get('userName').errors.minlength">The user name must be longer than 3 characters.</span>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- end userName -->
+
+                  <!-- start email -->
+                  <div class="form-group row" [ngClass]="{'has-error': (registerForm.get('email').touched || registerForm.get('email').dirty) &&
+                !registerForm.get('email').valid }">
+                    <div class="col-sm-2"></div>
+                    <span class="input-group-text">@</span>
+                    <div class="col-sm-8">
+                      <input type="text" formControlName="email" class="form-control" placeholder="Your Email">
+                      <span class="text-danger" *ngIf="(registerForm.get('email').touched || registerForm.get('email').dirty) && 
+                    registerForm.get('email').errors">
+                        <span *ngIf="registerForm.get('email').errors.required">Please enter your email address.</span>
+                        <br>
+                        <span *ngIf="registerForm.get('email').errors.email">Please enter a valid email address.</span>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- end email -->
+
+                  <!-- start password -->
+                  <div class="form-group row" [ngClass]="{'has-error': (registerForm.get('password').touched || registerForm.get('password').dirty) &&
+                         !registerForm.get('password').valid }">
+                    <div class="col-sm-2"></div>
+                    <span class="input-group-text">
+                      <i class="icon-key"></i>
+                    </span>
+                    <div class="col-sm-8">
+                      <input type="password" formControlName="password" id="password" class="form-control" placeholder="Your Password" required>
+                      <span class="text-danger" *ngIf="(registerForm.get('password').touched || registerForm.get('password').dirty) && 
+                    registerForm.get('password').errors">
+                        <span *ngIf="registerForm.get('password').errors.required">Please enter your password.</span>
+                        <span *ngIf="registerForm.get('password').errors.minlength">The password must be longer than 4 characters.</span>
+                        <span *ngIf="registerForm.get('password').errors.maxlength">The password must be not longer than 30 characters.</span>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- end password -->
+
+                  <!-- start repeatPassword -->
+                  <div class="form-group row" [ngClass]="{'has-error': (registerForm.get('repeatPassword').touched || registerForm.get('repeatPassword').dirty) &&
+                        !registerForm.get('repeatPassword').valid }">
+                    <div class="col-sm-2"></div>
+                    <span class="input-group-text">
+                      <i class="icon-key"></i>
+                    </span>
+                    <div class="col-sm-8">
+                      <input type="password" formControlName="repeatPassword" id="repeatPassword" class="form-control" placeholder="Your repeatPassword"
+                        required>
+                      <span class="text-danger" *ngIf="(registerForm.get('repeatPassword').touched || registerForm.get('repeatPassword').dirty) && 
+                                            registerForm.get('repeatPassword').errors">
+                        <span *ngIf="registerForm.get('repeatPassword').errors.required">Please enter your repeatPassword.</span>
+                        <span *ngIf="registerForm.get('repeatPassword').errors.MatchPassword">Password not match.</span>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- end repeatPassword -->
+
+                  <!-- start role -->
+                  <div class="form-group row" [ngClass]="{'has-error': (registerForm.get('role').touched || registerForm.get('role').dirty) &&
+          !registerForm.get('role').valid }">
+                    <div class="col-sm-2"></div>
+                    <span class="input-group-text">
+                      <i class="icon-magnet"></i>
+                    </span>
+                    <div class="col-sm-8">
+                      <input type="text" formControlName="role" class="form-control form-control-sm" placeholder="Your role">
+                      <span class="text-danger" *ngIf="(registerForm.get('role').touched || registerForm.get('role').dirty) && 
+               registerForm.get('role').errors">
+                        <span *ngIf="registerForm.get('role').errors.required">Please enter your role.</span>
+                        <span *ngIf="registerForm.get('role').errors.minlength">The role must be longer than 3 characters.</span>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- end role -->
+
+                  <!-- start color -->
+                  <div class="form-group row" [ngClass]="{'has-error': (registerForm.get('color').touched || registerForm.get('color').dirty) &&
+          !registerForm.get('color').valid }">
+                    <div class="col-sm-2"></div>
+                    <span class="input-group-text">
+                      <i class="icon-compass"></i>
+                    </span>
+                    <div class="col-sm-8">
+                      <input type="text" formControlName="color" class="form-control form-control-sm" placeholder="Your color">
+                      <span class="text-danger" *ngIf="(registerForm.get('color').touched || registerForm.get('color').dirty) && 
+              registerForm.get('color').errors">
+                        <span *ngIf="registerForm.get('color').errors.required">Please enter any color.</span>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- end color -->
+
+                  <!-- start country -->
+                  <div class="form-group row" [ngClass]="{'has-error': (registerForm.get('country').touched || registerForm.get('country').dirty) &&
+          !registerForm.get('country').valid }">
+                    <div class="col-sm-2"></div>
+                    <span class="input-group-text">
+                      <i class="icon-home"></i>
+                    </span>
+                    <div class="col-sm-8">
+                      <input type="text" formControlName="country" class="form-control form-control-sm" placeholder="Your country">
+                      <span class="text-danger" *ngIf="(registerForm.get('country').touched || registerForm.get('country').dirty) && 
+              registerForm.get('country').errors">
+                        <span *ngIf="registerForm.get('country').errors.required">Please enter your country.</span>
+
+                      </span>
+                    </div>
+                  </div>
+                  <!-- end country -->
+
+                  <!-- start status -->
+                  <div class="form-group row" [ngClass]="{'has-error': (registerForm.get('status').touched || registerForm.get('status').dirty) &&
+              !registerForm.get('status').valid }">
+                    <div class="col-sm-2"></div>
+                    <span class="input-group-text">
+                      <i class="icon-bell"></i>
+                    </span>
+                    <div class="col-sm-8">
+                      <input type="number" formControlName="status" class="form-control form-control-sm" placeholder="Your status" required>
+                      <span class="text-danger" *ngIf="(registerForm.get('status').touched || registerForm.get('status').dirty) && 
+                  registerForm.get('status').errors">
+                        <span *ngIf="registerForm.get('status').errors.required">Please enter your status.</span>
+                      </span>
+                    </div>
+                  </div>
+                  <!-- end status -->
+
+                </div>
+              </div>
+            </div>
+            <br>
+            <!-- start actions -->
+            <div class="text-center">
+              <button type="submit" class="btn btn-success active" style="margin-right: 8px;cursor:pointer;" [disabled]="!registerForm.valid">
+                <i class="fa fa-registered"></i> Register</button>
+              <button class="btn btn-danger" style="cursor:pointer;" (click)="cancel()">
+                <i class="fa fa-arrow-circle-right fa-lg"></i> Cancel</button>
+            </div>
+            <!-- end actions -->
+          </form>
+          <!-- end reactive form -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
