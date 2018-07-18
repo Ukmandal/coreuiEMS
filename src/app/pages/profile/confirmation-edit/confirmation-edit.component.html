@@ -1,0 +1,96 @@
+<div class="container">
+  <div align="center">
+    <div class="actions" style="text-align: right; cursor: pointer;">
+      <button mat-button mat-raised-button class="btn btn-danger active">
+        <a class="btn btn-icon-only" (click)="openDialogBox()">
+          <i class="fa fa-times"></i>
+        </a>
+      </button>
+    </div>
+    <hr>
+    <h1 mat-dialog-title> Edit And Update Customer Details</h1>
+    <hr>
+    <form class="form-horizontal" [formGroup]="customerForm" (ngSubmit)="onUpdate()" novalidate>
+      <div class="row">
+        <div col-sm-2></div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>User Name: </label>
+            <mat-input-container class="fullwidth">
+              <input matInput type="text" id="userName" class="form-control" placeholder="Your userName" formControlName="userName">
+            </mat-input-container>
+          </div>
+          <div class="form-group">
+            <label>imageUrl: </label>
+            <mat-input-container class="fullwidth">
+              <input matInput type="text" id="imageUrl" class="form-control" placeholder="Your imageUrl" formControlName="imageUrl">
+            </mat-input-container>
+          </div>
+          <div class="form-group">
+            <label>Email: </label>
+            <mat-input-container class="fullwidth">
+              <input matInput type="text" id="email" class="form-control" placeholder="Your Email" formControlName="email">
+            </mat-input-container>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Password: </label>
+            <mat-input-container class="fullwidth">
+              <input matInput type="text" id="password" class="form-control" placeholder="Your Password" maxlength="10" formControlName="password">
+            </mat-input-container>
+          </div>
+          <div class="form-group">
+            <label>repeatPassword: </label>
+            <mat-input-container class="fullwidth">
+              <input matInput type="text" id="repeatPassword" class="form-control" placeholder="Your repeatPassword" maxlength="10" formControlName="repeatPassword">
+            </mat-input-container>
+          </div>
+          <div class="form-group">
+            <label>Role: </label>
+            <mat-input-container class="fullwidth">
+              <input matInput type="text" id="role" class="form-control" placeholder="Your Role" formControlName="role">
+            </mat-input-container>
+          </div>
+          <div class="form-group">
+            <label>Status: </label>
+            <mat-input-container class="fullwidth">
+              <input matInput type="number" id="status" class="form-control" placeholder="Your Status" formControlName="status">
+            </mat-input-container>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Country: </label>
+            <mat-form-field>
+              <mat-select placeholder="Select Country" formControlName="country" class="form-control">
+                <ngx-mat-select-search [formControl]="countryFilterCtrl"></ngx-mat-select-search>
+                <mat-option *ngFor="let c of filteredCountries | async" [value]="c.name">
+                  {{c.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <label>Favourite Color: </label>
+            <mat-form-field>
+              <mat-select formControlName="color" placeholder="Favourite Color" [multiple]="true" class="form-control">
+                <ngx-mat-select-search [formControl]="colorFilterCtrl"></ngx-mat-select-search>
+                <mat-option *ngFor="let c of filteredColor | async" [value]="c.name">
+                  {{c.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="mat-button-center" style="margin-left: 400px;">
+          <button mat-button mat-button style="color: #fff;background-color: #153961;">Save & Submit</button>
+          <button mat-button mat-button type="reset" (click)="reset()">Reset</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
