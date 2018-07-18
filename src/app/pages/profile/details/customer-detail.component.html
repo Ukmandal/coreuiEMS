@@ -1,0 +1,120 @@
+<div class="container">
+    <div class="card-title text-center">
+        <h2 style="color: blue;" *ngIf="employee">Welcome User:
+            <b style="color: crimson;">Hello {{employee.userName}}!</b>
+        </h2>
+        <p class="text-muted">You are redirected In to your Employees Management System details account</p>
+    </div>
+    <!-- <div class="row">
+        <button class="btn btn-link" (click)="showSetting()" style="margin: 5px;">
+            <i class="fa fa-hand-o-right"></i> Setting</button>
+        <button class="btn btn-link" (click)="showContact()">
+            <i class="fa fa-hand-o-right"></i> Contact</button>
+    </div> -->
+    <div class="container-inner">
+        <div *ngIf="employee">
+            <dl class="row">
+                <div class="col-sm-6">
+                    <div class="card card-profile">
+                        <hr style="border-width: 5px; background-color: crimson; margin-top: 0px;">
+                        <div class="text-center">
+                            <a>
+                                <img [src]="employee.imageUrl" class="img-container" [style.width.px]="imageWidth">
+                            </a>
+                            <div class="author">
+                                <h4 class="card-title">Henry Ford</h4>
+                                <h6 class="card-category">Product Manager</h6>
+                            </div>
+                            <p class="card-description text-center">
+                                Teamwork is so important that it is virtually impossible for you to reach the heights of your capabilities or make the money
+                                that you want without becoming very good at it.
+                            </p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="#pablo" class="btn btn-link btn-just-icon btn-neutral">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                            <a href="#pablo" class="btn btn-link btn-just-icon btn-neutral">
+                                <i class="fa fa-google-plus"></i>
+                            </a>
+                            <a href="#pablo" class="btn btn-link btn-just-icon btn-neutral">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card card-profile">
+                        <hr style="border-width: 5px; background-color: crimson;margin-top: 0px;">
+                        <h4 style="color: blue;" class="text-center" *ngIf="employee">{{pageTitle}} -
+                            <b style="color: rgb(226, 17, 17);">( No. {{employee.id}} & {{employee.userName}})</b>
+                        </h4>
+                        <hr>
+                        <div class="text-center">
+
+                            <div class="form-group row">
+                                <dt class="col-sm-1"></dt>
+                                <dt class="col-sm-4">ID *</dt>
+                                <dd class="col-sm-6">{{employee.id}}</dd>
+                            </div>
+
+                            <div class="form-group row">
+                                <dt class="col-sm-1"></dt>
+                                <dt class="col-sm-4">UserName *</dt>
+                                <dd class="col-sm-6">{{employee.userName | uppercase}}</dd>
+                            </div>
+
+                            <div class="form-group row">
+                                <dt class="col-sm-1"></dt>
+                                <dt class="col-sm-4">Email *</dt>
+                                <dd class="col-sm-6">{{employee.email | uppercase}}</dd>
+                            </div>
+
+                            <div class="form-group row">
+                                <dt class="col-sm-1"></dt>
+                                <dt class="col-sm-4">Password *</dt>
+                                <dd class="col-sm-6">{{employee.password | uppercase}}</dd>
+                            </div>
+                            <div class="form-group row">
+                                <dt class="col-sm-1"></dt>
+                                <dt class="col-sm-4">RepeatPassword *</dt>
+                                <dd class="col-sm-6">{{employee.repeatPassword | uppercase}}</dd>
+                            </div>
+                            <div class="form-group row">
+                                <dt class="col-sm-1"></dt>
+                                <dt class="col-sm-4">Role *</dt>
+                                <dd class="col-sm-6">{{employee.role | uppercase}}</dd>
+                            </div>
+                            <div class="form-group row">
+                                <dt class="col-sm-1"></dt>
+                                <dt class="col-sm-4">Color *</dt>
+                                <dd class="col-sm-6">{{employee.color}}</dd>
+                            </div>
+                            <div class="form-group row">
+                                <dt class="col-sm-1"></dt>
+                                <dt class="col-sm-4">Country *</dt>
+                                <dd class="col-sm-6">{{employee.country | uppercase}}</dd>
+                            </div>
+                            <div class="form-group row">
+                                <dt class="col-sm-1"></dt>
+                                <dt class="col-sm-4">Status *</dt>
+                                <dd class="col-sm-6">  {{employee?.status==1 ? 'Verified' : employee?.status==2? 'InActive': employee?.status==3 ? 'Rejected': employee?.status==4?
+                                    'Active':''}}</dd>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </dl>
+        </div>
+        <div class="action">
+            <button class='btn btn-link btn-lg' style="margin: 5px;" (click)='goPrevious()'>
+                <i class="fa fa-angle-double-left"></i> Previous </button>
+            <button class='btn btn-link btn-lg' (click)='goNext()'> Next
+                <i class="fa fa-angle-double-right"></i>
+            </button>
+            <button class="btn btn-primary" style="float: right;" (click)="goToCustomer()">
+                <i class="fa fa-hand-o-left"></i> Back</button>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div>
