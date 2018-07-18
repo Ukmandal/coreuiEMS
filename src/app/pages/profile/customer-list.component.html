@@ -1,0 +1,124 @@
+<div class="container">
+    <div class="card-title text-center">
+        <h2 style="color: blue;">Welcome User:
+            <b style="color: crimson;">{{loggedInUser?.email}}</b>
+        </h2>
+        <p class="text-muted">You are redirected In to your Employees Management System account</p>
+    </div>
+    <div class="card">
+        <div class="card-header" style="text-align:right;">
+            <button mat-raised-button style="color: #fff;background-color: #1a1877;" (click)="openConfirmationEdit(0)">Add</button>
+            <button mat-raised-button style="color: #fff;background-color: #1a1877;" (click)="deleteMultiple(id)">
+                Multiple Delete</button>
+            <button mat-raised-button style="color: #fff;background-color: #1a1877;" [matMenuTriggerFor]="menu">Change status</button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="select(1)">Verified</button>
+                <button mat-menu-item (click)="select(2)">InActive</button>
+                <button mat-menu-item (click)="select(3)">Rejected</button>
+                <button mat-menu-item (click)="select(4)">Active</button>
+            </mat-menu>
+        </div>
+        <hr style="border-width: 5px; background-color: crimson; margin-top: -6px;">
+        <mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="details">
+                <mat-header-cell *matHeaderCellDef>All Details</mat-header-cell>
+                <mat-cell (click)="expandRow(index)" *matCellDef="let row; let index = index">
+                    <i class="fa fa-plus" aria-hidden="true" style="cursor: pointer;"></i>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="imageUrl">
+                <mat-header-cell *matHeaderCellDef>
+                    <button class="btn btn-primary" (click)="toggleImage()">
+                        {{ showImage ? "Hide": "Show" }} Pic
+                    </button>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <img *ngIf="showImage" src="{{row.imageUrl}}" [title]="row.imageUrl" [style.width.px]="imageWidth">
+
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="password">
+                <mat-header-cell *matHeaderCellDef> Password </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.password}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="repeatPassword">
+                <mat-header-cell *matHeaderCellDef> repeatPassword </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.repeatPassword}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="userName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> userName </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <a href="jav::" (click)="onSelect(row)" style="cursor: pointer;">{{row.userName}} </a>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="role">
+                <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.role}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="checkbox">
+                <mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue()
+                         && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row.id) : null" [checked]="selection.isSelected(row.id)">
+                    </mat-checkbox>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="color">
+                <mat-header-cell *matHeaderCellDef> Color </mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.color}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="country">
+                <mat-header-cell *matHeaderCellDef> Country </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.country}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <span style="display: inline-block;" id="state-{{row.id}}" class="animated label" [ngClass]="{ ' label-info':row.status==1,
+                                            ' label-warning':row.status==2,
+                                            ' label-danger':row.status==3,
+                                            ' label-success':row.status==4}">
+                        {{row.status==1 ? 'Verified' : row.status==2? 'InActive': row.status==3 ? 'Rejected': row.status==4? 'Active':''}}
+                    </span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="edit">
+                <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button class="btn btn-info active" mat-raised-button (click)="openConfirmationEdit(row.id)">Edit</button>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="delete">
+                <mat-header-cell *matHeaderCellDef>Delete</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button class="btn btn-danger active" mat-raised-button (click)="openConfirmationDelete(row.id)">Delete</button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" #cdkrow>
+            </mat-row>
+        </mat-table>
+        <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+        </mat-paginator>
+    </div>
+</div>
