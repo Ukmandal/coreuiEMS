@@ -1,0 +1,72 @@
+<br>
+<div class="container" *ngIf="childData" style="background: gold;">
+    <h4>
+        <b>Employee Details Here</b>
+    </h4>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-3">
+                    <p>
+                        <strong>Id: </strong> {{childData?.id}} </p>
+                </div>
+                <div class="col-md-5">
+                    <img [src]="childData?.imageUrl" class="img-container" [style.width.px]="imageWidth">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <p>
+                        <strong>Password: </strong> {{childData?.password}}</p>
+                </div>
+                <div class="col-md-5">
+                    <p>
+                        <strong>Email: </strong> {{childData?.email}}</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <p>
+                        <strong>User Name: </strong> {{childData?.userName}}</p>
+                </div>
+                <div class="col-md-5">
+                    <p>
+                        <strong>repeatPassword: </strong> {{childData?.repeatPassword}}</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <p>
+                        <strong>Role: </strong> {{childData?.role}} </p>
+                </div>
+                <div class="col-md-5">
+                    <p>
+                        <strong>Color: </strong> {{childData?.color}}</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <p>
+                        <strong>Country: </strong> {{childData?.country}} </p>
+                </div>
+                <div class="col-md-5">
+                    <p>
+                        <strong>Status: </strong>
+                        <span style="display: inline-block;" class="animated label" [ngClass]="{ ' label-info':childData?.status==1,
+                        ' label-warning':childData?.status==2,
+                        ' label-danger':childData?.status==3,
+                        ' label-success':childData?.status==4}">
+                            {{childData?.status==1 ? 'Verified' : childData?.status==2? 'InActive': childData?.status==3 ? 'Rejected': childData?.status==4?
+                            'Active':''}}
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>
